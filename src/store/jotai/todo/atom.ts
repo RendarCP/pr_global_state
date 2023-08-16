@@ -1,23 +1,21 @@
-import { todoListState } from "./atom";
+import { atom } from "jotai";
 
-import { selector } from "recoil";
+const todoAtom = atom([]);
 
-const todoListStatsState = selector({
-  key: 'todoListStatsState',
-  get: ({get}) => {
-    const todoList = get(todoListState);
+const todoStateAtom = atom(
+  (get) => {
+    const todoList = get(todoAtom)
     const totalNum = todoList.length;
     const totalCompletedNum = todoList.filter((item) => item.isComplete).length;
     const totalUncompletedNum = totalNum - totalCompletedNum;
     const percentCompleted = totalNum === 0 ? 0 : totalCompletedNum / totalNum;
-
     return {
       totalNum,
       totalCompletedNum,
       totalUncompletedNum,
       percentCompleted,
     };
-  },
-});
+  }
+)
 
-export { todoListStatsState }
+export { todoAtom, todoStateAtom };
