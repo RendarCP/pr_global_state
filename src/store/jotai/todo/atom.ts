@@ -3,13 +3,6 @@ import { atomWithStorage } from 'jotai/utils'
 
 const storageTodoAtom = atomWithStorage('todoAtom', [])
 
-// console.log('-============', storageAtom);
-
-// const testAtom = atom(storageAtom);
-// console.log('testAtom' ,testAtom);
-
-// const todoAtom = atom([]);
-
 const todoStateAtom = atom(
   (get) => {
     const todoList = get(storageTodoAtom)
