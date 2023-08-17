@@ -1,5 +1,5 @@
 import { create }from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface TodoState {
 	id: string
@@ -15,7 +15,7 @@ interface TodoListState {
   editItemText?: (event: any, id: string | number) => void;
 }
 
-const useTodoStore = create<TodoListState>(devtools((set) => ({
+const useTodoStore = create<TodoListState>(devtools(persist((set) => ({
   todos: [],
   addItem: (text) => {
     set((state) => ({
@@ -38,6 +38,6 @@ const useTodoStore = create<TodoListState>(devtools((set) => ({
     const { value } = event.target;
     set((state) => ({ todos: state.todos.map((list) => list.id === id ? { ...state.todos, text: value} : list)}))
   }
-})))
+}), { name: 'todos'})))
 
 export { useTodoStore }
