@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/recoil" element={<RecoilPage />} />
           <Route path="/jotai" element={<JotailPage />} />
-          <Route path="/zutand" element={<ZustandPage />} />
+          <Route path="/zustand" element={<ZustandPage />} />
         </Routes>
       </Router>
     </>
