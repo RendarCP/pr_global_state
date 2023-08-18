@@ -6,6 +6,12 @@ import TodoListStats from '../components/TodolistStats';
 import { TodoCreator } from '../components/TodoCreator';
 import { TodoItem } from '../components/TodoItem';
 
+// 고유한 Id 생성을 위한 유틸리티
+let id = 0;
+const getId = (id: number) => {
+  return id++;
+};
+
 export default function JotailPage() {
   const [todos, setTodos] = useAtom(storageTodoAtom);
   const todoState = useAtomValue(todoStateAtom);
@@ -14,9 +20,10 @@ export default function JotailPage() {
   // todolist 체크 로직
   const toggleItemCompletion = id => {
     setTodos(
-      todos.map(list =>
-        list.id === id ? { ...todos, isComplete: !list.isComplete } : list
-      )
+      todos.map(list => ({
+        ...list,
+        isComplete: list.id === id ? !list.isComplete : list.isComplete,
+      }))
     );
   };
 
@@ -24,7 +31,10 @@ export default function JotailPage() {
   const editItemText = (event, id) => {
     const { value } = event.target;
     setTodos(
-      todos.map(list => (list.id === id ? { ...todos, text: value } : list))
+      todos.map(list => ({
+        ...list,
+        text: list.id === id ? value : list.text,
+      }))
     );
   };
 
@@ -38,7 +48,7 @@ export default function JotailPage() {
     setTodos(oldTodoList => [
       ...oldTodoList,
       {
-        id: getId(),
+        id: getId(id),
         text: inputValue,
         isComplete: false,
       },
@@ -66,10 +76,4 @@ export default function JotailPage() {
       ))}
     </div>
   );
-}
-
-// 고유한 Id 생성을 위한 유틸리티
-let id = 0;
-function getId() {
-  return id++;
 }
