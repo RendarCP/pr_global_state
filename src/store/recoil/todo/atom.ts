@@ -1,7 +1,8 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
+import { TodoItem } from '../../../types/todoType';
 
-const todoListState = atom({
-  key: "todoListState",
+const todoListState = atom<TodoItem[]>({
+  key: 'todoListState',
   default: [],
 });
 
