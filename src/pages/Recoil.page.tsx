@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TodoCreator } from '../components/TodoCreator';
 import { TodoItem } from '../components/TodoItem';
 import { todoListState } from '../store/recoil/todo/atom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { todoListStatsState } from '../store/recoil/todo/selectors';
 import TodoListStats from '../components/TodolistStats';
 
@@ -14,7 +14,7 @@ function getId() {
 
 export default function RecoilPage() {
   const [todoList, setTodoList] = useRecoilState(todoListState);
-  const [todoState, setTodoState] = useRecoilState(todoListStatsState);
+  const todoState = useRecoilValue(todoListStatsState);
   const [inputValue, setInputValue] = useState('');
 
   // todolist 체크 로직
