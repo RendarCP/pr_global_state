@@ -14,11 +14,13 @@ export default function ZustandPage() {
   // 투투리스트에 대한 state값을 가져옵니다
   const todoState = useTodoStore(state => state.getTodoState());
 
+  // input 변경 함수
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setInputValue(value);
   };
 
+  // todoitem add함수 정의
   const onAddItem = () => {
     addItem(inputValue);
     setInputValue('');
