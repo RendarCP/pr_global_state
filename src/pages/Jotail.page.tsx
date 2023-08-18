@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { storageTodoAtom, todoStateAtom } from '../store/jotai/todo/atom';
 import { DevTools } from 'jotai-devtools';
@@ -8,7 +8,7 @@ import { TodoItem } from '../components/TodoItem';
 
 // 고유한 Id 생성을 위한 유틸리티
 let id = 0;
-const getId = (id: number) => {
+const getId = () => {
   return id++;
 };
 
@@ -18,7 +18,7 @@ export default function JotailPage() {
   const [inputValue, setInputValue] = useState('');
 
   // todolist 체크 로직
-  const toggleItemCompletion = id => {
+  const toggleItemCompletion = (id: number) => {
     setTodos(
       todos.map(list => ({
         ...list,
@@ -28,7 +28,7 @@ export default function JotailPage() {
   };
 
   // todolist 수정 로직
-  const editItemText = (event, id) => {
+  const editItemText = (event: ChangeEvent<HTMLInputElement>, id: number) => {
     const { value } = event.target;
     setTodos(
       todos.map(list => ({
@@ -39,7 +39,7 @@ export default function JotailPage() {
   };
 
   // todolist 삭제 로직
-  const deleteItem = id => {
+  const deleteItem = (id: number) => {
     setTodos(todos.filter(list => list.id !== id));
   };
 
@@ -48,7 +48,7 @@ export default function JotailPage() {
     setTodos(oldTodoList => [
       ...oldTodoList,
       {
-        id: getId(id),
+        id: getId(),
         text: inputValue,
         isComplete: false,
       },
@@ -56,7 +56,8 @@ export default function JotailPage() {
     setInputValue('');
   };
 
-  const onChange = ({ target: { value } }) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputValue(value);
   };
 

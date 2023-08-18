@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { TodoCreator } from '../components/TodoCreator';
 import TodoListStats from '../components/TodolistStats';
 import { TodoItem } from '../components/TodoItem';
@@ -14,7 +14,8 @@ export default function ZustandPage() {
   // 투투리스트에 대한 state값을 가져옵니다
   const todoState = useTodoStore(state => state.getTodoState());
 
-  const onChange = ({ target: { value } }) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputValue(value);
   };
 

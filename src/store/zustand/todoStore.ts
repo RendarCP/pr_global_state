@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { TodoItem } from '../../types/todoType';
+import { TtodoItem } from '../../types/todoType';
 import React from 'react';
 
 interface TodoListState {
-  todos: TodoItem[];
+  todos: TtodoItem[];
   addItem: (text: string) => void;
-  deleteItem: (id: string | number) => void;
-  toggleItemCompletion: (id: string | number) => void;
-  editItemText: (event: any, id: string | number) => void;
+  deleteItem: (id: number) => void;
+  toggleItemCompletion: (id: number) => void;
+  editItemText: (event: any, id: number) => void;
   getTodoState: () => void;
 }
 
@@ -33,7 +33,7 @@ const store = (set, get) => ({
     );
   },
   // 투두리스트 삭제 함수 정의
-  deleteItem: (id: number | string) => {
+  deleteItem: (id: number) => {
     set(
       state => ({ todos: state.todos.filter(list => list.id !== id) }),
       false,
@@ -41,7 +41,7 @@ const store = (set, get) => ({
     );
   },
   // 투두리스트 완료 상태 변경함수 정의
-  toggleItemCompletion: (id: number | string) => {
+  toggleItemCompletion: (id: number) => {
     set(
       state => ({
         todos: state.todos.map(list => ({
@@ -54,10 +54,7 @@ const store = (set, get) => ({
     );
   },
   // 투두 리스트 item 내용 변경 함수
-  editItemText: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    id: number | string
-  ) => {
+  editItemText: (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
     const { value } = event.target;
     set(
       state => ({

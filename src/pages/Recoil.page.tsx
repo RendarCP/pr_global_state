@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { TodoCreator } from '../components/TodoCreator';
 import { TodoItem } from '../components/TodoItem';
 import { todoListState } from '../store/recoil/todo/atom';
@@ -8,9 +8,9 @@ import TodoListStats from '../components/TodolistStats';
 
 // 고유한 Id 생성을 위한 유틸리티
 let id = 0;
-function getId() {
+const getId = () => {
   return id++;
-}
+};
 
 export default function RecoilPage() {
   const [todoList, setTodoList] = useRecoilState(todoListState);
@@ -18,7 +18,7 @@ export default function RecoilPage() {
   const [inputValue, setInputValue] = useState('');
 
   // todolist 체크 로직
-  const toggleItemCompletion = id => {
+  const toggleItemCompletion = (id: number) => {
     setTodoList(
       todoList.map(list => ({
         ...list,
@@ -28,7 +28,7 @@ export default function RecoilPage() {
   };
 
   // todolist 수정 로직
-  const editItemText = (event, id) => {
+  const editItemText = (event: ChangeEvent<HTMLInputElement>, id: number) => {
     const { value } = event.target;
     setTodoList(
       todoList.map(list => ({
@@ -39,7 +39,7 @@ export default function RecoilPage() {
   };
 
   // todolist 삭제 로직
-  const deleteItem = id => {
+  const deleteItem = (id: number) => {
     setTodoList(todoList.filter(list => list.id !== id));
   };
 
@@ -56,7 +56,8 @@ export default function RecoilPage() {
     setInputValue('');
   };
 
-  const onChange = ({ target: { value } }) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
     setInputValue(value);
   };
   return (

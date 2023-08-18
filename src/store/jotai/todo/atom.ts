@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { TodoItem } from '../../../types/todoType';
+import { TtodoItem } from '../../../types/todoType';
 
-const storageTodoAtom = atomWithStorage<TodoItem[]>('todoAtom', []);
+const storageTodoAtom = atomWithStorage<TtodoItem[]>('todoAtom', []);
 
 const todoStateAtom = atom(get => {
   const todoList = get(storageTodoAtom);
