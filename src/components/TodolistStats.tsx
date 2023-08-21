@@ -1,4 +1,13 @@
-export default function TodoListStats({ states }: any) {
+interface TodoListStateProps {
+  states: {
+    totalNum: string | number;
+    totalCompletedNum: string | number;
+    totalUncompletedNum: string | number;
+    percentCompleted: number;
+  };
+}
+
+const TodoListStats = ({ states }: TodoListStateProps) => {
   const { totalNum, totalCompletedNum, totalUncompletedNum, percentCompleted } =
     states;
   const formattedPercentCompleted = Math.round(percentCompleted * 100);
@@ -11,4 +20,6 @@ export default function TodoListStats({ states }: any) {
       <li>퍼센트: {formattedPercentCompleted}</li>
     </ul>
   );
-}
+};
+
+export default TodoListStats;
